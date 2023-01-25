@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>WC</title>
+</head>
+<body>
+<p th:text="'Workout Calculator'"/>
+
+<div id="like_button_container"></div>
+
+<!-- input necessary data for processing -->
+<form name="person" method="post" th:action="@{/result}" th:object="${person}">
+    <div>
+        <label th:for="${#ids.next('height')}">
+            Enter your approximate height please:
+        </label>
+        <input type="number" th:field="*{height}"/>
+        <br>
+    </div>
+    <div>
+        <label th:for="${#ids.next('mass')}">
+            Enter your approximate body mass please:
+        </label>
+        <input type="number" th:field="*{mass}"/>
+        <br>
+    </div>
+    <label th:for="${#ids.next('gender')}">
+        Please select the gender that fits your body's biological structure:
+    </label>
+    <select name="gender" th:field="*{gender}">
+        <option th:each="genderOpt : ${T(com.wc.workoutcalculator.Gender).values()}"
+                th:value="${genderOpt}" th:text="${genderOpt.displayValue}"></option>
+    </select>
+    <ul>
+        <li style="list-style:none;" th:each="bt : ${T(com.wc.workoutcalculator.BodyType).values()}">
+            <input type="radio" th:field="*{bodyType}" th:value="${bt}"/>
+            <label th:for="${#ids.prev('bodyType')}" th:text="${bt.displayValue}"></label>
+        </li>
+    </ul>
+    <div th:if="${person.gender == T(com.wc.workoutcalculator.Gender).MALE}">
+
+    </div>
+    <div th:if="${person.gender == T(com.wc.workoutcalculator.Gender).FEMALE}">
+
+    </div>
+
+    <button type="submit">
+        Analyze
+    </button>
+</form>
+
+<footer>
+    <span th:text="${currentYear}"></span>
+</footer>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+<script th:src="@{/js/react_test.js}"></script>
+
+</body>
+</html>
