@@ -1,4 +1,4 @@
-package com.wc.workoutcalculator;
+package com.wc.workoutcalculator.analyzing;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,10 +1,9 @@
-package com.wc.workoutcalculator;
+package com.wc.workoutcalculator.analyzing;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 
@@ -23,4 +22,5 @@ public class Controller {
         System.out.println(p);
         return "index";
     }
+
 }

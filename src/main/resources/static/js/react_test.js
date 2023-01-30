@@ -24,3 +24,9 @@ class LikeButton extends React.Component {
 const domContainer = document.querySelector('#like_button_container');
 const root = ReactDOM.createRoot(domContainer);
 root.render(e(LikeButton));
+
+/* getting the gender enum from backend
+fetch('http://my.api.com/api/employees')
+  .then(resp => resp.json())
+  .then(data => this.setState({employees: data.employees}})
+*/

@@ -1,4 +1,4 @@
-package com.wc.workoutcalculator;
+package com.wc.workoutcalculator.analyzing;
 
 public enum Gender {
     MALE("male"),
