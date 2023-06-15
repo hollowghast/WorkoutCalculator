@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Workout Calculator</title>
+
+    <script type="text/javascript">
+        const unit_set = fetch("./units").then(result => result.text()).then(result => {return result;});
+        function splitUnits(){
+            unit_set.then(res => console.log(res));
+        }
+    </script>
+</head>
+<body>
+<p>Workout Calculator</p>
+
+<div id="like_button_container"></div>
+
+<!-- input necessary data for processing -->
+<form name="person" method="post" action="result.html">
+    <select name="unit" onchange="updateUnits();">
+        <option value="imperial">Imperial</option>
+        <option value="metric" selected="selected">Metric</option>
+    </select>
+
+    <div>
+        <label>
+            Enter your approximate height please:
+        </label>
+        <input id="height_input" type="text"/>
+        <inline id="height_unit"></inline>
+        <br>
+    </div>
+    <div>
+        <label>
+            Enter your approximate body mass please:
+        </label>
+        <input id="mass_input" type="number"/>
+        <inline id="mass_unit"></inline>
+        <br>
+    </div>
+    <label>
+        Please select the gender that fits your body's biological structure:
+    </label>
+    <select name="gender">
+        <option value="m">male</option>
+        <option value="w">female</option>
+    </select>
+    <ul> <!-- show a list from possible body types (after implementing front/backend communication) -->
+        <li style="list-style:none;">
+            <input type="radio" value="bt1"/>
+            <label text="bt1"></label>
+        </li>
+    </ul>
+    <div>
+        <!-- insert male/female graphics -->
+    </div>
+
+    <button type="submit">
+        Analyze
+    </button>
+</form>
+
+<script type="text/javascript">
+    let isMetric = true;
+
+
+
+      function updateUnits(){
+      isMetric = document.getElementsByName("unit")[0].value == "metric" ? true : false;
+
+      let output = document.getElementById("mass_unit");
+      let input = document.getElementById("mass_input");
+
+        if (isMetric)
+      {
+          document.getElementById("height_input").value = "175";
+          document.getElementById("height_unit").textContent = "cm";
+
+          output.textContent = "kg";
+          input.value = 75;
+      }
+      else if(!isMetric)
+      {
+          document.getElementById("height_input").value = "5'4";
+          document.getElementById("height_unit").textContent = "ft";
+
+          output.textContent = "lbs";
+          input.value = 165;
+      }
+      }
+window.onload = updateUnits();
+
+
+</script>
+
+
+<!--
+<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+-->
+<!--
+<script src="@{/js/libs/react.development.js}"></script>
+<script src="@{/js/libs/react-dom.development.js}"></script>
+
+<script src="@{/js/react_test.js}"></script>
+<script src="@{/js/tutorial.js}"></script>
+-->
+</body>
+</html>

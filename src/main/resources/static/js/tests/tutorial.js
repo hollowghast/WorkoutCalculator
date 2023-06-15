@@ -1,3 +1,4 @@
+//mocha chai ?
 describe('pow', function() {
     describe('raise to the 3rd', function() {
         function createTests(base) {
