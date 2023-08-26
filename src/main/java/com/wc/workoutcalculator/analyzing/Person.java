@@ -1,14 +1,9 @@
 package com.wc.workoutcalculator.analyzing;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
-@ToString
 public class Person {
     private Gender gender;
     private Integer height;

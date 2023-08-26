@@ -2,17 +2,27 @@ package com.wc.workoutcalculator.analyzing;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("/")
 public class CalculatorController {
     @Autowired
     private DataHandlingController dhc;
 
-    @GetMapping("/")
-    public String mainPage()
+    @GetMapping
+    public String mainPage(Model m)
     {
-        return "forward:/html/main.html";
+        m.addAttribute("person", new Person());
+
+        //return "forward:/html/main.html";
+        //return "redirect:thymeleaf_index";
+        return "thymeleaf_index";
+    }
+    @PostMapping
+    public String createPerson(@ModelAttribute Person p){
+
+        return "error";
     }
 }

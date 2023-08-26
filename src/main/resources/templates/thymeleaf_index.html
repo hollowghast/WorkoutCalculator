@@ -3,70 +3,84 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>WC</title>
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+    <style>
+        body{
+            margin:auto;
+            padding-top:20px;
+            padding-bottom:20px;
+        }
+
+    </style>
 </head>
 <body>
-<p th:text="'Workout Calculator'"/>
-
-<div id="like_button_container"></div>
-
+<div class="container">
+    <h2 class="jumbotron" th:text="'Workout Calculator'"></h2>
+    <div id="like_button_container"></div>
+</div>
 <!-- input necessary data for processing -->
-<form name="person" method="post" th:action="@{/result}" th:object="${person}">
-    <div>
-        <label th:for="${#ids.next('unit')}">
-            Choose your preferred type of units:
-        </label>
-        <select name="unit" th:field="*{unit}">
-            <option th:each="unitOpt : ${T(com.wc.workoutcalculator.analyzing.Unit).values()}"
-                    th:value="${unitOpt}" th:text="${unitOpt}"></option>
-        </select>
-    </div>
-    <div>
-        <label>  <!--th:for="${#ids.next('height')}"-->
-            Enter your approximate height please:
-        </label>
-
-        <!-- change th:if to js (th:if is preprocessed - didnt think of that) -->
-        <div th:if="${person.unit == T(com.wc.workoutcalculator.analyzing.Unit).METRIC}">
-            <p>test</p>
-            <input type="number" th:field="*{height}" value="175"/>
+<div class="container card">
+    <form name="person" method="post" th:action="@{/result}" th:object="${person}">
+        <div class="form-group">
+            <label th:for="${#ids.next('unit')}">
+                Choose your preferred type of units:
+            </label>
+            <select name="unit" class="form-control" th:field="*{unit}">
+                <option th:each="unitOpt : ${T(com.wc.workoutcalculator.analyzing.Unit).values()}"
+                        th:value="${unitOpt}" th:text="${unitOpt.getDisplay_name()}"></option>
+            </select>
         </div>
-        <div th:if="${person.unit == T(com.wc.workoutcalculator.analyzing.Unit).IMPERIAL}">
-            <input type="number" th:field="*{height}" value="175"/>
+        <div class="form-group">
+            <label>  <!--th:for="${#ids.next('height')}"-->
+                Enter your approximate height please:
+            </label>
+
+            <!-- change th:if to js (th:if is preprocessed - didnt think of that) -->
+            <div th:for="${#ids.next('height')}">
+                <input class="form-control" name="height" type="text" th:field="*{height}"/>
+            </div>
+            <br>
         </div>
-        <br>
-    </div>
-    <div>
-        <label th:for="${#ids.next('mass')}">
-            Enter your approximate body mass please:
-        </label>
-        <input name="mass" type="number" th:field="*{mass}"/>
-        <br>
-    </div>
-    <label th:for="${#ids.next('gender')}">
-        Please select the gender that fits your body's biological structure:
-    </label>
-    <select name="gender" th:field="*{gender}">
-        <option th:each="genderOpt : ${T(com.wc.workoutcalculator.analyzing.Gender).values()}"
-                th:value="${genderOpt}" th:text="${genderOpt.displayValue}"></option>
-    </select>
-    <ul>
-        <li style="list-style:none;" th:each="bt : ${T(com.wc.workoutcalculator.analyzing.BodyType).values()}">
-            <input type="radio" th:field="*{bodyType}" th:value="${bt}"/>
-            <label th:for="${#ids.prev('bodyType')}" th:text="${bt.displayValue}"></label>
-        </li>
-    </ul>
-    <div th:if="${person.gender == T(com.wc.workoutcalculator.analyzing.Gender).MALE}">
-        <!-- insert male graphics -->
-    </div>
-    <div th:if="${person.gender == T(com.wc.workoutcalculator.analyzing.Gender).FEMALE}">
-        <!-- insert female graphics -->
-    </div>
-
-    <button type="submit">
-        Analyze
-    </button>
-</form>
-
+        <div class="form-group">
+            <label th:for="${#ids.next('mass')}">
+                Enter your approximate body mass please:
+            </label>
+            <input class="form-control" name="mass" type="number" th:field="*{mass}"/>
+            <br>
+        </div>
+        <div class="form-group">
+            <label th:for="${#ids.next('gender')}">
+                Please select the gender that fits your body's biological structure:
+            </label>
+            <select class="form-control" name="gender" th:field="*{gender}">
+                <option th:each="genderOpt : ${T(com.wc.workoutcalculator.analyzing.Gender).values()}"
+                        th:value="${genderOpt}" th:text="${genderOpt.displayValue}"></option>
+            </select>
+            <ul class="form-control" style="list-style:none;">
+                <li th:each="bt : ${T(com.wc.workoutcalculator.analyzing.BodyType).values()}">
+                    <input type="radio" th:field="*{bodyType}" th:value="${bt}" />
+                    <label th:for="${#ids.prev('bodyType')}" th:text="${bt.getDisplayValue()}"></label>
+                </li>
+            </ul>
+        </div>
+        <button class="btn btn-primary" type="submit">
+            Analyze
+        </button>
+    </form>
+</div>
 <footer>
     <span th:text="${currentYear}"></span>
 </footer>
@@ -75,11 +89,12 @@
 <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
 -->
+<!--
 <script th:src="@{/js/libs/react.development.js}"></script>
 <script th:src="@{/js/libs/react-dom.development.js}"></script>
 
 <script th:src="@{/js/react_test.js}"></script>
 <script th:src="@{/js/tutorial.js}"></script>
-
+-->
 </body>
 </html>
